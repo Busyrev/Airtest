@@ -28,7 +28,8 @@ Get started from [airtest homepage](http://airtest.netease.com/)
 Use `pip` to install the Airtest python library. 
 
 ```Shell
-pip install -U airtest
+python setup.py build  
+python setup.py install
 ```
 
 On MacOS/Linux platform, you need to grant adb execute permission.
