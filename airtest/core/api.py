@@ -5,7 +5,7 @@ This module contains the Airtest Core APIs.
 import os
 import time
 
-from airtest.core.cv import Template, loop_find, try_log_screen
+from airtest.core.cv import Template, loop_find, try_log_screen, loop_find_disappear
 from airtest.core.error import TargetNotFoundError
 from airtest.core.settings import Settings as ST
 from airtest.utils.compat import script_log_dir
@@ -617,6 +617,19 @@ def wait(v, timeout=None, interval=0.5, intervalfunc=None):
     pos = loop_find(v, timeout=timeout, interval=interval, intervalfunc=intervalfunc)
     return pos
 
+@logwrap
+def wait_disappear(v, timeout):
+    """
+    Check whether given target exists on device screen
+
+    :param v: target to be checked
+    :param timeout: time interval to wait for the match, default is None which is ``ST.FIND_TIMEOUT``
+    :return: True if target disappeared
+    :raise TargetNotFoundError: raised if target is not disappeared after the time limit expired
+    :platforms: Android, Windows, iOS
+
+    """
+    return loop_find_disappear(v, timeout=timeout)
 
 @logwrap
 def exists(v):

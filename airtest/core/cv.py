@@ -81,6 +81,45 @@ def loop_find(query, timeout=ST.FIND_TIMEOUT, threshold=None, interval=0.5, inte
         else:
             time.sleep(interval)
 
+@logwrap
+def loop_find_disappear(query, timeout=ST.FIND_TIMEOUT, interval=0.5):
+    """
+    Search for image template in the screen until timeout
+
+    Args:
+        query: image template to be found in screenshot
+        timeout: time interval how long to look for the image template
+        interval: sleep interval before next attempt to find the image template
+
+    Raises:
+        TargetNotFoundError: when image template is not found in screenshot
+
+    Returns:
+        TargetNotFoundError if image template not found, otherwise returns the position where the image template has
+        been found in screenshot
+
+    """
+    G.LOGGING.info("Try finding: %s", query)
+    start_time = time.time()
+    while True:
+        screen = G.DEVICE.snapshot(filename=None, quality=ST.SNAPSHOT_QUALITY)
+
+        if screen is None:
+            G.LOGGING.warning("Screen is None, may be locked")
+        else:
+            match_pos = query.match_in(screen)
+            if match_pos:
+                try_log_screen(screen)
+            else:
+                try_log_screen(screen)
+                return True
+
+        # 超时则raise，未超时则进行下次循环:
+        if (time.time() - start_time) > timeout:
+            try_log_screen(screen)
+            raise TargetNotFoundError('Picture %s is not disappeared from screen' % query)
+        else:
+            time.sleep(interval)
 
 @logwrap
 def try_log_screen(screen=None, quality=None, max_size=None):
