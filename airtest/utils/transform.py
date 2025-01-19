@@ -37,6 +37,8 @@ class TargetPos(object):
             return rect[2][0], rect[2][1] - h / 2
         elif pos == self.DOWN:
             return rect[2][0] - w / 2, rect[2][1]
+        elif type(pos) is tuple:
+            return rect[0][0] + w * pos[0], rect[0][1] + h * pos[1]
         else:
             print("invalid target_pos:%s, use mid point instead" % pos)
             return cvret["result"]

@@ -155,7 +155,7 @@ class Template(object):
     """
     picture as touch/swipe/wait/exists target and extra info for cv match
     filename: pic filename
-    target_pos: ret which pos in the pic
+    target_pos: ret which pos in the pic, may be tuple like (0.48, 0.11)
     record_pos: pos in screen when recording
     resolution: screen resolution when recording
     rgb: 识别结果是否使用rgb三通道进行校验.
