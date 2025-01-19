@@ -220,6 +220,8 @@ class Template(object):
                 else:
                     ret = self._try_match(func, image, screen, threshold=self.threshold, rgb=self.rgb)
             if ret:
+                h, w = image.shape[:2]
+                ret['orgig_image_size'] = (w, h)
                 break
         return ret
 
