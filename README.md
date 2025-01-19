@@ -28,7 +28,7 @@ Get started from [airtest homepage](http://airtest.netease.com/)
 Use `pip` to install the Airtest python library. 
 
 ```Shell
-python uninstall airtest
+pip uninstall airtest
 python setup.py build  
 python setup.py install
 ```
